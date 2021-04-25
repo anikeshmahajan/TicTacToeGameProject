@@ -12,9 +12,9 @@ public class TicTacToeGame {
 		    String turn ;
 			int index ;
 			char[] board=board();
-			
-			char userLetter=chooseLetter(scanner);
-			char compLetter=(userLetter =='x')?'o' :'x';
+			char userLetter,compLetter;
+			 userLetter=chooseLetter(scanner);
+			 compLetter=(userLetter =='x')?'o' :'x';
 			showBoard(board);
 		    String firstPlayer=	firstPlayCheck();
 			if(firstPlayer.equalsIgnoreCase(player)) {
@@ -200,6 +200,23 @@ public class TicTacToeGame {
 			if(board[3]==' ') index=3;
 			if(board[7]==' ') index=7;
 			if(board[9]==' ') index=9;
+			return index;
+		}
+		private static int checkingCenter_Sides(char[] board, char compLetter) {
+			int index = 0;
+			if (board[5] == ' ')
+				index = 5;
+			else {
+				if (board[2] == ' ')
+					index = 2;
+				if (board[4] == ' ')
+					index = 4;
+				if (board[6] == ' ')
+					index = 6;
+				if (board[8] == ' ')
+					index = 8;
+			}
+
 			return index;
 		}
 	    

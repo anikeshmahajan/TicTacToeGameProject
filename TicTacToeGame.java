@@ -82,7 +82,7 @@ public class TicTacToeGame {
 		 char gameBoard[] = new char[10];
 		for (int i = 0; i < gameBoard.length; i++) {
 			
-			gameBoard[i]= '\0';
+			gameBoard[i]= ' ';
 	 }
 		return gameBoard;
 		}
@@ -134,7 +134,7 @@ public class TicTacToeGame {
 	    }
 	    private static boolean isSpaceFree(char[] board, int index)
 	    {
-	        return board[index] == '\0';
+	        return board[index] == ' ';
 	    }
 	    
 	    private static String firstPlayCheck() {

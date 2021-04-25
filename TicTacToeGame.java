@@ -2,7 +2,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class TicTacToeGame {
-
+	private static String player = "User";
+	private static String computer = "Computer";
 	public static void main(String[] args) {
 		
 		    Scanner scanner = new Scanner(System.in);
@@ -10,8 +11,9 @@ public class TicTacToeGame {
 			 char[] board=board();
 			char userLetter=chooseLetter(scanner);
 			char compLetter=(userLetter =='x')?'o' :'x';
-			
 			showBoard(board);
+			if(firstPlayCheck().equals(player)) System.out.println("Player  Turns First");
+			else System.out.println("Computer Turns First");		
 		    int userMove=	indexChooser(board,scanner);
 		    board[userMove]=userLetter;
 		    showBoard(board);
@@ -80,4 +82,9 @@ public class TicTacToeGame {
 	    {
 	        return board[index] == '\0';
 	    }
+	    
+	    private static String firstPlayCheck() {
+			int toss = (int) (Math.random() * 10) % 2;
+			return (toss == 1) ? (player) : (computer);
+		}
 }

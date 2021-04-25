@@ -2,27 +2,76 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class TicTacToeGame {
-	private static String player = "User";
+	private static String player = "Player";
 	private static String computer = "Computer";
+	
 	public static void main(String[] args) {
 		
 		    Scanner scanner = new Scanner(System.in);
+			boolean check = true;
+			String turn ;
+			int index ;
+			char[] board=board();
 			
-			 char[] board=board();
 			char userLetter=chooseLetter(scanner);
 			char compLetter=(userLetter =='x')?'o' :'x';
 			showBoard(board);
-			if(firstPlayCheck().equals(player)) System.out.println("Player  Turns First");
-			else System.out.println("Computer Turns First");		
-		    int userMove=	indexChooser(board,scanner);
-		    board[userMove]=userLetter;
-		    showBoard(board);
+			if(firstPlayCheck().equals(player)) 
+				System.out.println("Player  Turns First");
+			else 
+				System.out.println("Computer Turns First");		
+		    	turn =computer;
+			
+		    
+			do {
+				if (turn.equals(player)) {
+					index = indexChooser(board, scanner);
+					moveBoard(index, board, userLetter);
+					showBoard(board);
+					check = checkWinAndTie(board, userLetter);
+					turn = computer;
+				} 
+				else {
+					index = 9;
+				board[index] = compLetter;
+				showBoard(board);
+				check = checkWinAndTie(board, compLetter);
+				turn = player;
+				}
+			} while (!check);
 			
 		}	
 		
 		
 		
 	
+	private static boolean checkWinAndTie(char[] board, char userLetter) {
+		boolean check;
+		if ((board[1] == userLetter && board[2] == userLetter && board[3] == userLetter) || (board[4] == userLetter && board[5] == userLetter && board[6] == userLetter)
+				|| (board[7] == userLetter && board[8] == userLetter && board[9] == userLetter)
+				|| (board[1] == userLetter && board[4] == userLetter && board[7] == userLetter)
+				|| (board[2] == userLetter && board[5] == userLetter && board[8] == userLetter)
+				|| (board[3] == userLetter && board[6] == userLetter && board[9] == userLetter)
+				|| (board[1] == userLetter && board[5] == userLetter && board[9] == userLetter)
+				|| (board[3] == userLetter && board[5] == userLetter && board[7] == userLetter)) {
+			check = true;
+			System.out.println("Player Won");
+		} else {
+			int valid = 0;
+			for (int index = 1; index < board.length; index++) {
+				if (board[index] == ' ')
+					valid++;
+			}
+			check = (valid == 9) ? (true) : (false);
+
+		}
+		return check;
+		
+	}
+
+
+
+
 	static char[] board()
 	{
 		 char gameBoard[] = new char[10];
@@ -85,6 +134,13 @@ public class TicTacToeGame {
 	    
 	    private static String firstPlayCheck() {
 			int toss = (int) (Math.random() * 10) % 2;
-			return (toss == 1) ? (player) : (computer);
+			return (toss == 0) ? (player) : (computer);
 		}
+	    
+	    private static char[] moveBoard(int index, char[] tictactoeboard, char letter) {
+			tictactoeboard[index] = letter;
+			showBoard(tictactoeboard);
+			return tictactoeboard;
+		}
+	    
 }

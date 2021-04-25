@@ -19,7 +19,7 @@ public class TicTacToeGame {
 		 char gameBoard[] = new char[10];
 		for (int i = 0; i < gameBoard.length; i++) {
 			
-			gameBoard[i]= '\0';
+			gameBoard[i]= ' ';
 	 }
 		return gameBoard;
 		}

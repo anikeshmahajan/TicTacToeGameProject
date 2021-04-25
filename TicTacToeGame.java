@@ -7,17 +7,20 @@ public class TicTacToeGame {
 	
 	public static void main(String[] args) {
 		
-		    Scanner scanner = new Scanner(System.in);
-			boolean check = true;
-		    String turn ;
-			int index ;
-			char[] board=board();
-			char userLetter,compLetter;
-			 userLetter=chooseLetter(scanner);
-			 compLetter=(userLetter =='x')?'o' :'x';
-			showBoard(board);
-		    String firstPlayer=	firstPlayCheck();
-			if(firstPlayer.equalsIgnoreCase(player)) {
+		   System.out.println("Welcome To TicTacToe Game");
+		   Scanner scanner = new Scanner(System.in);
+		   boolean check = true;
+		   String turn ;
+		   int index ;
+		   char[] board=board();
+			
+			
+			 char compLetter;
+			 char userLetter = chooseLetter(scanner);
+			 compLetter = (userLetter =='x')  ?  (compLetter ='o') : (compLetter = 'x');
+			 showBoard(board);
+		    
+			if(firstPlayCheck().equalsIgnoreCase(player)) {
 				turn = player;
 				System.out.println("Player  Turns First");
 			}
@@ -32,25 +35,26 @@ public class TicTacToeGame {
 				if (turn.equalsIgnoreCase(player)) {
 					index = indexChooser(board, scanner);
 					valueAssign(index, board, userLetter);	
-					
-					check = checkWinAndTieCondition(board, userLetter);
+					showBoard(board);
+					check = checkWinAndTieCondition(board, userLetter,player);
 					turn = computer;
 				} 
 				else {
+					System.out.println("Computer Chance  \n");
 					index = computerTurn(board, compLetter, userLetter);
 					valueAssign(index, board, compLetter);
-				showBoard(board);
-				check = checkWinAndTieCondition(board, compLetter);
-				turn = player;
+				    showBoard(board);
+				    check = checkWinAndTieCondition(board, compLetter,computer);
+				    turn = player;
 				}
 			} while (!check);
-			showBoard(board);
+			
 		}	
 		
 		
 		
 	
-	private static boolean checkWinAndTieCondition(char[] board, char letter) {
+	private static boolean checkWinAndTieCondition(char[] board, char letter, String user) {
 		boolean check;
 		if ((board[1] == letter && board[2] == letter && board[3] == letter) || (board[4] == letter && board[5] == letter && board[6] == letter)
 				|| (board[7] == letter && board[8] == letter && board[9] == letter)
@@ -59,8 +63,15 @@ public class TicTacToeGame {
 				|| (board[3] == letter && board[6] == letter && board[9] == letter)
 				|| (board[1] == letter && board[5] == letter && board[9] == letter)
 				|| (board[3] == letter && board[5] == letter && board[7] == letter)) {
+			if(user.equalsIgnoreCase(player))
+			{
+				System.out.println("!!!......You Have Won the game......!!!!");
+			}else
+			{
+				System.out.println("!!.....You Lost the game....!!!!!!!");
+			}
 			check = true;
-			System.out.println("Player Won");
+			
 		} else {
 			int valid = 0;
 			for (int index = 1; index < board.length; index++) {
@@ -68,7 +79,10 @@ public class TicTacToeGame {
 					valid++;
 			}
 			check = (valid == 9) ? (true) : (false);
-
+			if(check)
+			{
+				System.out.println("Game Tie .......!!!!!");
+			}
 		}
 		return check;
 		
@@ -79,13 +93,16 @@ public class TicTacToeGame {
 
 	static char[] board()
 	{
-		 char gameBoard[] = new char[10];
+		char gameBoard[] = new char[10];
+		
 		for (int i = 0; i < gameBoard.length; i++) {
 			
-			gameBoard[i]= '\0';
+			gameBoard[i]= ' ';
 	 }
 		return gameBoard;
 		}
+	
+	
 	static char chooseLetter(Scanner scanner)
 	{
 	
@@ -132,23 +149,24 @@ public class TicTacToeGame {
 		}
 
 	    }
-	    private static boolean isSpaceFree(char[] board, int index)
+	 
+	 private static boolean isSpaceFree(char[] board, int index)
 	    {
-	        return board[index] == '\0';
+	        return board[index] ==  ' ';
 	    }
 	    
-	    private static String firstPlayCheck() {
+	 private static String firstPlayCheck() {
 			int toss = (int) (Math.random() * 10) % 2;
 			return (toss == 0) ? (player) : (computer);
 		}
 	    
-	    private static char[] valueAssign(int index, char[] board, char letter) {
+	 private static char[] valueAssign(int index, char[] board, char letter) {
 			board[index] = letter;
 			
 			return board;
 		}
 	    
-	    private static int checkingWinningMove(char[] board, char letter) {
+	  private static int checkingWinningMove(char[] board, char letter) {
 			int index;
 			index = checkingWinningLine(1, 2, 3, board, letter);
 			if (index == 0)
@@ -190,7 +208,13 @@ public class TicTacToeGame {
 			index = checkingWinningMove(board, compLetter);
 			if (index == 0)
 				index = checkingWinningMove(board, userLetter);
+			if (index == 0);
+			
+				index = checkcorner(board, compLetter);
+			if (index == 0)
+				index = checkingCenter_Sides(board, compLetter);
 			return index;
+			
 		}
 		
 
@@ -202,6 +226,8 @@ public class TicTacToeGame {
 			if(board[9]==' ') index=9;
 			return index;
 		}
+		
+		
 		private static int checkingCenter_Sides(char[] board, char compLetter) {
 			int index = 0;
 			if (board[5] == ' ')

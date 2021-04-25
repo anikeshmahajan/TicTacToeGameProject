@@ -7,7 +7,9 @@ public class TicTacToeGame {
 			System.out.println("Welcome to Tic Tac Toe");
 			TicTacToeGame game = new TicTacToeGame();
 			board();
-			
+			char userLetter=chooseLetter();
+			char compLetter=(userLetter =='x')?'o' :'x';
+		
 			
 		}	
 		
@@ -23,5 +25,26 @@ public class TicTacToeGame {
 	 }
 		return gameBoard;
 		}
+	static char chooseLetter()
+	{
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Choose the Letter o or x");
+		char choosedLetter =scanner.next().toLowerCase().charAt(0);
+		
+		if(choosedLetter == 'o')
+		{
+			return choosedLetter;
+		}
+		else if(choosedLetter == 'x')
+		{
+			return choosedLetter;
+		}
+		return choosedLetter;
+		
+		
+		
+			
+		
+	}
 	
 }

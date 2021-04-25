@@ -194,6 +194,13 @@ public class TicTacToeGame {
 		}
 		
 
-	
+		private static int checkcorner(char[]board,char compLetter) {
+			int index=0;
+			if(board[1]==' ') index=1;
+			if(board[3]==' ') index=3;
+			if(board[7]==' ') index=7;
+			if(board[9]==' ') index=9;
+			return index;
+		}
 	    
 }

@@ -36,8 +36,8 @@ public class TicTacToeGame {
 					turn = computer;
 				} 
 				else {
-					index = 9;
-				board[index] = compLetter;
+					index = checkingWinningMove(board, compLetter);
+					valueAssign(index, board, compLetter);
 				showBoard(board);
 				check = checkWinAndTieCondition(board, compLetter);
 				turn = player;
@@ -145,6 +145,44 @@ public class TicTacToeGame {
 			board[index] = letter;
 
 			return board;
+		}
+	    
+	    private static int checkingWinningMove(char[] board, char letter) {
+			int index;
+			index = checkingWinningLine(1, 2, 3, board, letter);
+			if (index == 0)
+				index = checkingWinningLine(4, 5, 6, board, letter);
+			if (index == 0)
+				index = checkingWinningLine(7, 8, 9, board, letter);
+			if (index == 0)
+				index = checkingWinningLine(1, 4, 7, board, letter);
+			if (index == 0)
+				index = checkingWinningLine(2, 5, 6, board, letter);
+			if (index == 0)
+				index = checkingWinningLine(3, 6, 9, board, letter);
+			if (index == 0)
+				index = checkingWinningLine(1, 5, 9, board, letter);
+			if (index == 0)
+				index = checkingWinningLine(3, 5, 7, board, letter);
+			return index;
+		}
+
+		private static int checkingWinningLine(int a, int b, int c, char[] board, char letter) {
+			int index = 0;
+			if ((board[a] == letter && board[b] == letter) || (board[b] == letter && board[c] == letter)
+					|| (board[a] == letter && board[c] == letter)) {
+
+				if ((board[a] == ' ') || (board[b] == ' ') || (board[c] == ' ')) {
+					if ((board[a] == ' '))
+						index = a;
+					if ((board[b] == ' '))
+						index = b;
+					if ((board[c] == ' '))
+						index = c;
+				}
+
+			}
+			return index;
 		}
 	    
 }

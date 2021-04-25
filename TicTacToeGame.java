@@ -32,11 +32,12 @@ public class TicTacToeGame {
 				if (turn.equalsIgnoreCase(player)) {
 					index = indexChooser(board, scanner);
 					valueAssign(index, board, userLetter);	
+					
 					check = checkWinAndTieCondition(board, userLetter);
 					turn = computer;
 				} 
 				else {
-					index = checkingWinningMove(board, compLetter);
+					index = computerTurn(board, compLetter, userLetter);
 					valueAssign(index, board, compLetter);
 				showBoard(board);
 				check = checkWinAndTieCondition(board, compLetter);
@@ -49,15 +50,15 @@ public class TicTacToeGame {
 		
 		
 	
-	private static boolean checkWinAndTieCondition(char[] board, char userLetter) {
+	private static boolean checkWinAndTieCondition(char[] board, char letter) {
 		boolean check;
-		if ((board[1] == userLetter && board[2] == userLetter && board[3] == userLetter) || (board[4] == userLetter && board[5] == userLetter && board[6] == userLetter)
-				|| (board[7] == userLetter && board[8] == userLetter && board[9] == userLetter)
-				|| (board[1] == userLetter && board[4] == userLetter && board[7] == userLetter)
-				|| (board[2] == userLetter && board[5] == userLetter && board[8] == userLetter)
-				|| (board[3] == userLetter && board[6] == userLetter && board[9] == userLetter)
-				|| (board[1] == userLetter && board[5] == userLetter && board[9] == userLetter)
-				|| (board[3] == userLetter && board[5] == userLetter && board[7] == userLetter)) {
+		if ((board[1] == letter && board[2] == letter && board[3] == letter) || (board[4] == letter && board[5] == letter && board[6] == letter)
+				|| (board[7] == letter && board[8] == letter && board[9] == letter)
+				|| (board[1] == letter && board[4] == letter && board[7] == letter)
+				|| (board[2] == letter && board[5] == letter && board[8] == letter)
+				|| (board[3] == letter && board[6] == letter && board[9] == letter)
+				|| (board[1] == letter && board[5] == letter && board[9] == letter)
+				|| (board[3] == letter && board[5] == letter && board[7] == letter)) {
 			check = true;
 			System.out.println("Player Won");
 		} else {
@@ -143,7 +144,7 @@ public class TicTacToeGame {
 	    
 	    private static char[] valueAssign(int index, char[] board, char letter) {
 			board[index] = letter;
-
+			
 			return board;
 		}
 	    
@@ -184,5 +185,15 @@ public class TicTacToeGame {
 			}
 			return index;
 		}
+		private static int computerTurn(char[] board, char compLetter, char userLetter) {
+			int index = 0;
+			index = checkingWinningMove(board, compLetter);
+			if (index == 0)
+				index = checkingWinningMove(board, userLetter);
+			return index;
+		}
+		
+
+	
 	    
 }

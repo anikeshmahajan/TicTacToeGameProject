@@ -2,50 +2,54 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class TicTacToeGame {
-	private static String player = "Player";
-	private static String computer = "Computer";
+	private static String player = "player";
+	private static String computer = "computer";
 	
 	public static void main(String[] args) {
 		
 		    Scanner scanner = new Scanner(System.in);
 			boolean check = true;
-			String turn ;
+		    String turn ;
 			int index ;
 			char[] board=board();
 			
 			char userLetter=chooseLetter(scanner);
 			char compLetter=(userLetter =='x')?'o' :'x';
 			showBoard(board);
-			if(firstPlayCheck().equals(player)) 
+		    String firstPlayer=	firstPlayCheck();
+			if(firstPlayer.equalsIgnoreCase(player)) {
+				turn = player;
 				System.out.println("Player  Turns First");
-			else 
-				System.out.println("Computer Turns First");		
-		    	turn =computer;
+			}
+			else {
+				
+				System.out.println("Computer Turns First");	
+				turn =computer;
+			}
 			
 		    
 			do {
-				if (turn.equals(player)) {
+				if (turn.equalsIgnoreCase(player)) {
 					index = indexChooser(board, scanner);
-					moveBoard(index, board, userLetter);
-					showBoard(board);
-					check = checkWinAndTie(board, userLetter);
+					valueAssign(index, board, userLetter);	
+					check = checkWinAndTieCondition(board, userLetter);
 					turn = computer;
 				} 
 				else {
 					index = 9;
 				board[index] = compLetter;
 				showBoard(board);
-				check = checkWinAndTie(board, compLetter);
+				check = checkWinAndTieCondition(board, compLetter);
 				turn = player;
 				}
 			} while (!check);
-			
+			showBoard(board);
 		}	
 		
 		
 		
 	
-	private static boolean checkWinAndTie(char[] board, char userLetter) {
+	private static boolean checkWinAndTieCondition(char[] board, char userLetter) {
 		boolean check;
 		if ((board[1] == userLetter && board[2] == userLetter && board[3] == userLetter) || (board[4] == userLetter && board[5] == userLetter && board[6] == userLetter)
 				|| (board[7] == userLetter && board[8] == userLetter && board[9] == userLetter)
@@ -137,10 +141,10 @@ public class TicTacToeGame {
 			return (toss == 0) ? (player) : (computer);
 		}
 	    
-	    private static char[] moveBoard(int index, char[] tictactoeboard, char letter) {
-			tictactoeboard[index] = letter;
-			showBoard(tictactoeboard);
-			return tictactoeboard;
+	    private static char[] valueAssign(int index, char[] board, char letter) {
+			board[index] = letter;
+
+			return board;
 		}
 	    
 }
